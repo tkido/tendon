@@ -11,19 +11,17 @@ import (
 
 // Box is simple box
 type Box struct {
-	id                     int
-	Rect                   image.Rectangle
-	Color                  color.Color
-	Canvas                 *ebiten.Image
-	isDirty                bool
-	Image                  *ebiten.Image
-	isDirtySelf            bool
-	drawImageOptions       *ebiten.DrawImageOptions
-	cachedDrawImageOptions *ebiten.DrawImageOptions
-	Parent                 Element
-	Children               []Element
-	Self                   Element
-	visible                bool
+	id               int
+	Rect             image.Rectangle
+	Color            color.Color
+	isDirty          bool
+	Image            *ebiten.Image
+	isDirtySelf      bool
+	drawImageOptions *ebiten.DrawImageOptions
+	Parent           Element
+	Children         []Element
+	Self             Element
+	visible          bool
 	mouseCallbacks
 	keyCallbacks
 }
@@ -31,21 +29,18 @@ type Box struct {
 // NewBox make new Box
 func NewBox(w, h int, c color.Color) *Box {
 	b := &Box{
-		id:                     gm.nextID(),
-		Rect:                   image.Rect(0, 0, w, h),
-		Color:                  c,
-		Canvas:                 nil,
-		isDirty:                true,
-		Image:                  nil,
-		isDirtySelf:            true,
-		drawImageOptions:       &ebiten.DrawImageOptions{},
-		cachedDrawImageOptions: &ebiten.DrawImageOptions{},
-		Parent:                 nil,
-		Children:               []Element{},
-		mouseCallbacks:         mouseCallbacks{},
-		keyCallbacks:           keyCallbacks{},
-		Self:                   nil,
-		visible:                true,
+		id:             gm.nextID(),
+		Rect:           image.Rect(0, 0, w, h),
+		Color:          c,
+		isDirty:        true,
+		Image:          nil,
+		isDirtySelf:    true,
+		Parent:         nil,
+		Children:       []Element{},
+		mouseCallbacks: mouseCallbacks{},
+		keyCallbacks:   keyCallbacks{},
+		Self:           nil,
+		visible:        true,
 	}
 	b.Self = b
 	return b
@@ -164,28 +159,21 @@ func (b *Box) Size() (w, h int) {
 }
 
 // Draw draw box
-func (b *Box) Draw(canvas *ebiten.Image) {
+func (b *Box) Draw(screen *ebiten.Image) {
 	if !b.visible {
 		return
 	}
-	if b.isDirty {
-		b.isDirty = false
-		if b.isDirtySelf {
-			b.isDirtySelf = false
-			b.Self.Reflesh()
-		}
-		w, h := b.Size()
-		b.Canvas, _ = ebiten.NewImage(w, h, ebiten.FilterDefault)
-		op := &ebiten.DrawImageOptions{}
-		b.Canvas.DrawImage(b.Image, op)
-		*(b.cachedDrawImageOptions) = *(b.drawImageOptions)
-		x, y := b.Position()
-		b.cachedDrawImageOptions.GeoM.Translate(float64(x), float64(y))
-		for _, c := range b.Children {
-			c.Draw(b.Canvas)
-		}
+	if b.isDirtySelf {
+		b.isDirtySelf = false
+		b.Self.Reflesh()
 	}
-	canvas.DrawImage(b.Canvas, b.cachedDrawImageOptions)
+	x, y := b.Position()
+	op := &ebiten.DrawImageOptions{}
+	op.GeoM.Translate(float64(x), float64(y))
+	screen.DrawImage(b.Image, op)
+	for _, c := range b.Children {
+		c.Draw(screen)
+	}
 }
 
 // SetDrawImageOptions set DrawImageOptions

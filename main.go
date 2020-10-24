@@ -57,9 +57,6 @@ func (game *Game) Update(screen *ebiten.Image) error {
 
 func (game *Game) Draw(screen *ebiten.Image) {
 	ui.Draw(screen)
-	if ebiten.IsRunningSlowly() {
-		return
-	}
 	if game.IsDebugPrint {
 		err := debugPrint(screen)
 		if err != nil {

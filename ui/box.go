@@ -117,7 +117,8 @@ func (b *Box) Add(x, y int, child Element) {
 	}
 	child.setParent(b.Self)
 	b.Children = append(b.Children, child)
-	child.Move(x, y)
+	bX, bY := b.Position()
+	child.Move(bX+x, bY+y)
 	b.dirty()
 }
 

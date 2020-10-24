@@ -9,7 +9,7 @@ import (
 
 // Element is ebiten UI element
 type Element interface {
-	ID() int
+	Id() int
 	isDecendantOf(child Element) bool
 
 	Show()

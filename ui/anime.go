@@ -19,7 +19,7 @@ type Animation struct {
 
 // animation is internal animation setting
 type animation struct {
-	ID        int
+	Id        int
 	Element   Element
 	IsStarted bool
 	Start     int
@@ -34,12 +34,12 @@ type animationManager struct {
 
 // SetAnimation set animation to animationManager
 func (am *animationManager) SetAnimation(el Element, a Animation) {
-	id := el.ID()
+	id := el.Id()
 	if _, ok := am.Map[id]; ok {
 		return
 	}
 	anime := &animation{
-		ID:        id,
+		Id:        id,
 		Element:   el,
 		IsStarted: false,
 		Start:     gm.Now + a.Delay,
@@ -51,7 +51,7 @@ func (am *animationManager) SetAnimation(el Element, a Animation) {
 
 // StopAnimation stop animation
 func (am *animationManager) StopAnimation(el Element) {
-	id := el.ID()
+	id := el.Id()
 	a, ok := am.Map[id]
 	if !ok {
 		return

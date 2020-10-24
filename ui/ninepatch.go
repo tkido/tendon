@@ -44,7 +44,7 @@ func (n *Ninepatch) Reflesh() {
 
 // String for fmt.Stringer interface
 func (n *Ninepatch) String() string {
-	return fmt.Sprintf("%d:Ninepatch[%s]", n.ID(), n.Box.Rect)
+	return fmt.Sprintf("%d:Ninepatch[%s]", n.Id(), n.Box.Rect)
 }
 
 func (n *Ninepatch) makeNineRects(out, in image.Rectangle) []image.Rectangle {

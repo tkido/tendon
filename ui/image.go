@@ -43,5 +43,5 @@ func (i *Image) SetImage(image image.Image) {
 
 // String for fmt.Stringer interface
 func (i *Image) String() string {
-	return fmt.Sprintf("%d:Image[%s]", i.ID(), i.Box.Rect)
+	return fmt.Sprintf("%d:Image[%s]", i.Id(), i.Box.Rect)
 }

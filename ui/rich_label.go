@@ -88,7 +88,7 @@ func (l *RichLabel) Reflesh() {
 
 // String for fmt.Stringer interface
 func (l *RichLabel) String() string {
-	return fmt.Sprintf("%d:RichLabel[%s]:%s", l.ID(), l.Rect, string([]rune(l.text)[:4]))
+	return fmt.Sprintf("%d:RichLabel[%s]:%s", l.Id(), l.Rect, string([]rune(l.text)[:4]))
 }
 
 func splitForRichLabel(s string, f font.Face, w int) []string {

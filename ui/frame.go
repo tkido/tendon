@@ -40,5 +40,5 @@ func (f *Frame) SetCount(count int) {
 
 // String for fmt.Stringer interface
 func (f *Frame) String() string {
-	return fmt.Sprintf("%d:Frame[%s]", f.ID(), f.Box.Rect)
+	return fmt.Sprintf("%d:Frame[%s]", f.Id(), f.Box.Rect)
 }

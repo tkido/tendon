@@ -87,5 +87,5 @@ func (l *Label) Reflesh() {
 
 // String for fmt.Stringer interface
 func (l *Label) String() string {
-	return fmt.Sprintf("%d:Label[%s]:%s", l.ID(), l.Rect, string([]rune(l.text)[:4]))
+	return fmt.Sprintf("%d:Label[%s]:%s", l.Id(), l.Rect, string([]rune(l.text)[:4]))
 }

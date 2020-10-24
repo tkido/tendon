@@ -51,8 +51,8 @@ func NewBox(w, h int, c color.Color) *Box {
 	return b
 }
 
-// ID retruns id
-func (b *Box) ID() int {
+// Id retruns id
+func (b *Box) Id() int {
 	return b.id
 }
 
@@ -106,7 +106,7 @@ func (b *Box) dirtySelf() {
 
 // isDecendantOf prevent stak overflow
 func (b *Box) isDecendantOf(child Element) bool {
-	if b.ID() == child.ID() {
+	if b.Id() == child.Id() {
 		return true
 	}
 	if b.Parent == nil {
@@ -215,7 +215,7 @@ func (b *Box) SetBackgroundColor(c color.Color) {
 
 // String for fmt.Stringer
 func (b *Box) String() string {
-	return fmt.Sprintf("%d:Box[%s]%s", b.ID(), b.Rect, ColorCode(b.Color))
+	return fmt.Sprintf("%d:Box[%s]%s", b.Id(), b.Rect, ColorCode(b.Color))
 }
 
 // onMouseEvent call callback function if it exists

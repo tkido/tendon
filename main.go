@@ -50,53 +50,35 @@ func init() {
 	ui.SetRoot(bg)
 }
 
-func control(screen *ebiten.Image) (err error) {
+func (game *Game) Update(screen *ebiten.Image) error {
 	ui.Update()
-	return
+	return nil
 }
 
-func update(screen *ebiten.Image) (err error) {
-	return
-}
-
-func draw(screen *ebiten.Image) (err error) {
+func (game *Game) Draw(screen *ebiten.Image) {
 	ui.Draw(screen)
-	return
-}
-
-func loop(screen *ebiten.Image) (err error) {
-	err = control(screen)
-	if err != nil {
-		return
-	}
-
-	err = update(screen)
-	if err != nil {
-		return
-	}
-
 	if ebiten.IsRunningSlowly() {
 		return
 	}
-
-	err = draw(screen)
-	if err != nil {
-		return
-	}
-
 	if game.IsDebugPrint {
-		err = debugPrint(screen)
+		err := debugPrint(screen)
 		if err != nil {
 			return
 		}
 	}
-
 	return
 }
 
+func (game *Game) Layout(outsideWidth, outsideHeight int) (width, height int) {
+	return screenWidth, screenHeight
+}
+
 func main() {
+	ebiten.SetWindowSize(screenWidth, screenHeight)
+	ebiten.SetWindowTitle("Charactor Generator")
 	ebiten.SetRunnableInBackground(true)
-	if err := ebiten.Run(loop, screenWidth, screenHeight, 1, "MouseEvent (Ebiten Demo)"); err != nil {
+	ebiten.SetWindowFloating(true)
+	if err := ebiten.RunGame(&game); err != nil {
 		log.Fatal(err)
 	}
 }

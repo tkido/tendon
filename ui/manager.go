@@ -8,6 +8,7 @@ import (
 var gm = &generalManager{
 	Count: -1,
 	Now:   0,
+	Root:  nil,
 	mouseManager: mouseManager{
 		Downed:              [3]*mouseRecord{},
 		Clicked:             [3]*mouseRecord{},
@@ -31,6 +32,7 @@ var gm = &generalManager{
 type generalManager struct {
 	Count int
 	Now   int
+	Root  Element
 	animationManager
 	fontManager
 	keyManager

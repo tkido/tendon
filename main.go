@@ -26,7 +26,8 @@ type Game struct {
 
 func init() {
 	game = Game{false}
-	root = ui.NewBox(screenWidth, screenHeight, ui.Color("0f0"))
+	root = ui.NewRoot(screenWidth, screenHeight, ui.Color("0f0"))
+
 	menu := menuScreen()
 	// menu := mouseScreen()
 	mainMenu := mainMenu()
@@ -50,12 +51,11 @@ func init() {
 }
 
 func (game *Game) Update(screen *ebiten.Image) error {
-	ui.Update(root)
-	return nil
+	return ui.Update()
 }
 
 func (game *Game) Draw(screen *ebiten.Image) {
-	root.Draw(screen)
+	ui.Draw(screen)
 
 	if game.IsDebugPrint {
 		err := debugPrint(screen)

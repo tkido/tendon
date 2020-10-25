@@ -135,11 +135,6 @@ func (b *Box) Size() (w, h int) {
 	return s.X, s.Y
 }
 
-func (b *Box) Draw(screen *ebiten.Image) {
-	w, h := b.Size()
-	b.draw(screen, image.Rect(0, 0, w, h))
-}
-
 // draw draw box
 func (b *Box) draw(screen *ebiten.Image, clip image.Rectangle) {
 	if !b.visible {

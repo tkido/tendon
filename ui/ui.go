@@ -7,21 +7,13 @@ import (
 	"github.com/hajimehoshi/ebiten"
 )
 
-// SetRoot set background element
-func SetRoot(el Element) {
-	gm.Handler.Clear()
-	// TODO: clear animation, onItems, defered click, etc.
-	gm.Handler.Add(0, 0, el)
-	gm.Root = el
-}
-
 // Update ui
-func Update() {
+func Update(root Element) {
 	gm.Now++
 	gm.keyManager.Update()
 	// mouse control
 	if ev, updated := gm.getMouseEvents(); updated {
-		if handled := gm.Handler.handleMouseEvent(ev, image.ZP, image.Rect(0, 0, math.MaxInt64, math.MaxInt32)); !handled {
+		if handled := root.handleMouseEvent(ev, image.ZP, image.Rect(0, 0, math.MaxInt64, math.MaxInt32)); !handled {
 			if gm.OnElement != nil {
 				gm.OnElement.onMouseEvent(MouseOut)
 				gm.OnElement = nil
@@ -42,17 +34,8 @@ func Update() {
 			gm.Clicked[i] = nil
 		}
 	}
-}
-
-// Draw ui
-func Draw(screen *ebiten.Image) {
-	if gm.Root == nil {
-		return
-	}
+	// update animation
 	gm.Animate()
-	w, h := gm.Root.Size()
-	rect := image.Rect(0, 0, w, h)
-	gm.Root.Draw(screen, rect)
 }
 
 // SetKeyCallback set callback function for key. set nil means delete.

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"image"
 	_ "image/png"
 	"log"
 
@@ -15,7 +16,7 @@ const (
 
 var (
 	game  Game
-	bg    *ui.Box
+	root  *ui.Box
 	count int
 )
 
@@ -26,12 +27,12 @@ type Game struct {
 
 func init() {
 	game = Game{false}
-	bg = ui.NewBox(screenWidth, screenHeight, ui.Color("0f0"))
-	// menu := menuScreen()
-	menu := mouseScreen()
+	root = ui.NewBox(screenWidth, screenHeight, ui.Color("0f0"))
+	menu := menuScreen()
+	// menu := mouseScreen()
 	mainMenu := mainMenu()
-	bg.Add(0, 0, mainMenu)
-	bg.Add(0, 0, menu)
+	root.Add(0, 0, mainMenu)
+	root.Add(0, 0, menu)
 
 	ui.SetKeyCallback(ebiten.KeyF4, func(el ui.Element) {
 		game.IsDebugPrint = !game.IsDebugPrint
@@ -47,16 +48,17 @@ func init() {
 		el.Move(x+10, y+10)
 	})
 	menu.SetFocus()
-	ui.SetRoot(bg)
 }
 
 func (game *Game) Update(screen *ebiten.Image) error {
-	ui.Update()
+	ui.Update(root)
 	return nil
 }
 
 func (game *Game) Draw(screen *ebiten.Image) {
-	ui.Draw(screen)
+	w, h := root.Size()
+	root.Draw(screen, image.Rect(0, 0, w, h))
+
 	if game.IsDebugPrint {
 		err := debugPrint(screen)
 		if err != nil {

@@ -10,7 +10,6 @@ import (
 var gm = &generalManager{
 	Count:   -1,
 	Now:     0,
-	Root:    nil,
 	Handler: nil,
 	mouseManager: mouseManager{
 		Downed:              [3]*mouseRecord{},
@@ -40,7 +39,6 @@ func init() {
 type generalManager struct {
 	Count   int
 	Now     int
-	Root    Element
 	Handler Element // global key and mouse handler. implementation is just an empty Box that is always set as the parent of Root.
 	animationManager
 	fontManager

@@ -17,8 +17,7 @@ type Element interface {
 	IsVisible() bool
 	Draw(screen *ebiten.Image, clip image.Rectangle)
 	Reflesh()
-	dirty()
-	dirtySelf()
+	Dirty()
 
 	Move(x, y int)
 	Position() (x, y int)

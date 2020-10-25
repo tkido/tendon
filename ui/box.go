@@ -54,17 +54,11 @@ func (b *Box) Id() int {
 // Show element
 func (b *Box) Show() {
 	b.visible = true
-	if b.Parent != nil {
-		b.Parent.dirty()
-	}
 }
 
 // Hide element
 func (b *Box) Hide() {
 	b.visible = false
-	if b.Parent != nil {
-		b.Parent.dirty()
-	}
 }
 
 // IsVisible return visiblity
@@ -82,21 +76,9 @@ func (b *Box) Reflesh() {
 	b.Image.Fill(b.Color)
 }
 
-// dirty set element isDirty
-func (b *Box) dirty() {
-	if b.isDirty == true {
-		return
-	}
-	b.isDirty = true
-	if b.Parent != nil {
-		b.Parent.dirty()
-	}
-}
-
-// dirtySelf set element isDirtySelf
-func (b *Box) dirtySelf() {
+// Dirty set element isDirtySelf
+func (b *Box) Dirty() {
 	b.isDirtySelf = true
-	b.dirty()
 }
 
 // isDecendantOf prevent stak overflow
@@ -118,13 +100,11 @@ func (b *Box) Add(x, y int, child Element) {
 	child.setParent(b.Self)
 	b.Children = append(b.Children, child)
 	child.Move(x, y)
-	b.dirty()
 }
 
 // Clear clear children
 func (b *Box) Clear() {
 	b.Children = []Element{}
-	b.dirty()
 }
 
 // setParent set parent
@@ -136,7 +116,6 @@ func (b *Box) setParent(el Element) {
 func (b *Box) Move(x, y int) {
 	w, h := b.Size()
 	b.Rect = image.Rect(x, y, x+w, y+h)
-	b.dirty()
 }
 
 // Position return relative position from parent element
@@ -149,7 +128,7 @@ func (b *Box) Position() (x, y int) {
 func (b *Box) Resize(w, h int) {
 	x, y := b.Position()
 	b.Rect = image.Rect(x, y, x+w, y+h)
-	b.dirtySelf()
+	b.Dirty()
 }
 
 // Size get size of element
@@ -160,7 +139,6 @@ func (b *Box) Size() (w, h int) {
 
 // Draw draw box
 func (b *Box) Draw(screen *ebiten.Image, clip image.Rectangle) {
-	fmt.Println(clip)
 	if !b.visible {
 		return
 	}
@@ -185,7 +163,6 @@ func (b *Box) SetDrawImageOptions(op *ebiten.DrawImageOptions) {
 		op = &ebiten.DrawImageOptions{}
 	}
 	b.drawImageOptions = op
-	b.dirty()
 }
 
 // SetAnimation set animation
@@ -201,7 +178,7 @@ func (b *Box) StopAnimation() {
 // SetBackgroundColor set background color
 func (b *Box) SetBackgroundColor(c color.Color) {
 	b.Color = c
-	b.dirtySelf()
+	b.Dirty()
 }
 
 // String for fmt.Stringer

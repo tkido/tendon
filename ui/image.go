@@ -38,7 +38,7 @@ func (i *Image) Reflesh() {
 // SetImage set new source Image
 func (i *Image) SetImage(image image.Image) {
 	i.Source = image
-	i.dirtySelf()
+	i.Dirty()
 }
 
 // String for fmt.Stringer interface

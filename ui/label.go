@@ -33,7 +33,7 @@ type Label struct {
 // SetText for ui.Texter interface
 func (l *Label) SetText(s string) {
 	l.text = s
-	l.dirtySelf()
+	l.Dirty()
 }
 
 // Text for ui.Texter interface

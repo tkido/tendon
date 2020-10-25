@@ -16,7 +16,6 @@ type Box struct {
 	Color            color.Color
 	isDirty          bool
 	Image            *ebiten.Image
-	isDirtySelf      bool
 	drawImageOptions *ebiten.DrawImageOptions
 	Parent           Element
 	Children         []Element
@@ -34,7 +33,6 @@ func NewBox(w, h int, c color.Color) *Box {
 		Color:          c,
 		isDirty:        true,
 		Image:          nil,
-		isDirtySelf:    true,
 		Parent:         nil,
 		Children:       []Element{},
 		mouseCallbacks: mouseCallbacks{},
@@ -76,9 +74,9 @@ func (b *Box) Reflesh() {
 	b.Image.Fill(b.Color)
 }
 
-// Dirty set element isDirtySelf
+// Dirty set element isDirty
 func (b *Box) Dirty() {
-	b.isDirtySelf = true
+	b.isDirty = true
 }
 
 // isDecendantOf prevent stak overflow
@@ -142,8 +140,8 @@ func (b *Box) Draw(screen *ebiten.Image, clip image.Rectangle) {
 	if !b.visible {
 		return
 	}
-	if b.isDirtySelf {
-		b.isDirtySelf = false
+	if b.isDirty {
+		b.isDirty = false
 		b.Self.Reflesh()
 	}
 	x, y := b.Position()

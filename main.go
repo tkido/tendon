@@ -1,7 +1,6 @@
 package main
 
 import (
-	"image"
 	_ "image/png"
 	"log"
 
@@ -56,8 +55,7 @@ func (game *Game) Update(screen *ebiten.Image) error {
 }
 
 func (game *Game) Draw(screen *ebiten.Image) {
-	w, h := root.Size()
-	root.Draw(screen, image.Rect(0, 0, w, h))
+	root.Draw(screen)
 
 	if game.IsDebugPrint {
 		err := debugPrint(screen)

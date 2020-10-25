@@ -135,8 +135,13 @@ func (b *Box) Size() (w, h int) {
 	return s.X, s.Y
 }
 
-// Draw draw box
-func (b *Box) Draw(screen *ebiten.Image, clip image.Rectangle) {
+func (b *Box) Draw(screen *ebiten.Image) {
+	w, h := b.Size()
+	b.draw(screen, image.Rect(0, 0, w, h))
+}
+
+// draw draw box
+func (b *Box) draw(screen *ebiten.Image, clip image.Rectangle) {
 	if !b.visible {
 		return
 	}
@@ -151,7 +156,7 @@ func (b *Box) Draw(screen *ebiten.Image, clip image.Rectangle) {
 	clip = clip.Intersect(image.Rect(x, y, x+w, y+h))
 	screen.DrawImage(b.Image, op)
 	for _, c := range b.Children {
-		c.Draw(screen, clip)
+		c.draw(screen, clip)
 	}
 }
 

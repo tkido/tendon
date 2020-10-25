@@ -50,7 +50,9 @@ func Draw(screen *ebiten.Image) {
 		return
 	}
 	gm.Animate()
-	gm.Root.Draw(screen)
+	w, h := gm.Root.Size()
+	rect := image.Rect(0, 0, w, h)
+	gm.Root.Draw(screen, rect)
 }
 
 // SetKeyCallback set callback function for key. set nil means delete.

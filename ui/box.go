@@ -117,8 +117,7 @@ func (b *Box) Add(x, y int, child Element) {
 	}
 	child.setParent(b.Self)
 	b.Children = append(b.Children, child)
-	bX, bY := b.Position()
-	child.Move(bX+x, bY+y)
+	child.Move(x, y)
 	b.dirty()
 }
 
@@ -160,7 +159,8 @@ func (b *Box) Size() (w, h int) {
 }
 
 // Draw draw box
-func (b *Box) Draw(screen *ebiten.Image) {
+func (b *Box) Draw(screen *ebiten.Image, clip image.Rectangle) {
+	fmt.Println(clip)
 	if !b.visible {
 		return
 	}
@@ -169,11 +169,13 @@ func (b *Box) Draw(screen *ebiten.Image) {
 		b.Self.Reflesh()
 	}
 	x, y := b.Position()
+	w, h := b.Size()
 	op := &ebiten.DrawImageOptions{}
-	op.GeoM.Translate(float64(x), float64(y))
+	op.GeoM.Translate(float64(clip.Min.X+x), float64(clip.Min.Y+y))
+	clip = clip.Intersect(image.Rect(x, y, x+w, y+h))
 	screen.DrawImage(b.Image, op)
 	for _, c := range b.Children {
-		c.Draw(screen)
+		c.Draw(screen, clip)
 	}
 }
 

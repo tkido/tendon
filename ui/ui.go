@@ -3,8 +3,6 @@ package ui
 import (
 	"image"
 	"math"
-
-	"github.com/hajimehoshi/ebiten"
 )
 
 // Update ui
@@ -36,19 +34,4 @@ func Update(root Element) {
 	}
 	// update animation
 	gm.Animate()
-}
-
-// SetKeyCallback set callback function for key. set nil means delete.
-func SetKeyCallback(key ebiten.Key, cb Callback) {
-	gm.Handler.SetKeyCallback(key, cb)
-}
-
-// SetMouseCallback set callback function for mouse. set nil means delete.
-func SetMouseCallback(ev MouseEvent, cb Callback) {
-	gm.Handler.SetMouseCallback(ev, cb)
-}
-
-// ClearFocus clear focus
-func ClearFocus() {
-	gm.Handler.SetFocus()
 }

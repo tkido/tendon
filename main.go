@@ -34,13 +34,13 @@ func init() {
 	root.Add(0, 0, mainMenu)
 	root.Add(0, 0, menu)
 
-	ui.SetKeyCallback(ebiten.KeyF4, func(el ui.Element) {
+	root.SetKeyCallback(ebiten.KeyF4, func(el ui.Element) {
 		game.IsDebugPrint = !game.IsDebugPrint
 	})
-	ui.SetKeyCallback(ebiten.KeyF5, func(el ui.Element) {
+	root.SetKeyCallback(ebiten.KeyF5, func(el ui.Element) {
 		ebiten.SetScreenScale(2)
 	})
-	ui.SetMouseCallback(ui.LeftClick, func(el ui.Element) {
+	root.SetMouseCallback(ui.LeftClick, func(el ui.Element) {
 		log.Println("Foobar!!")
 	})
 	menu.SetKeyCallback(ebiten.KeyF5, func(el ui.Element) {

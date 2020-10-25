@@ -1,16 +1,13 @@
 package ui
 
 import (
-	"math"
-
 	"github.com/hajimehoshi/ebiten"
 )
 
 // gm is the singleton instance of general manager
 var gm = &generalManager{
-	Count:   -1,
-	Now:     0,
-	Handler: nil,
+	Count: -1,
+	Now:   0,
 	mouseManager: mouseManager{
 		Downed:              [3]*mouseRecord{},
 		Clicked:             [3]*mouseRecord{},
@@ -30,16 +27,10 @@ var gm = &generalManager{
 	},
 }
 
-func init() {
-	gm.Handler = NewBox(math.MaxInt64, math.MaxInt64, nil)
-	ClearFocus()
-}
-
 // generalManager is manager of internal status of ui
 type generalManager struct {
-	Count   int
-	Now     int
-	Handler Element // global key and mouse handler. implementation is just an empty Box that is always set as the parent of Root.
+	Count int
+	Now   int
 	animationManager
 	fontManager
 	keyManager

@@ -9,5 +9,6 @@ require (
 	github.com/jessevdk/go-assets v0.0.0-20160921144138-4f4301a06e15
 	github.com/magefile/mage v1.10.0
 	github.com/rakyll/statik v0.1.7
-	golang.org/x/image v0.0.0-20200927104501-e162460cd6b5
+	golang.org/x/image v0.23.0
+	golang.org/x/text v0.21.0 // indirect
 )
